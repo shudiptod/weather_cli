@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
 
 const (
 	defaultCity = "Dhaka"
-	apiKey = "5638256207439e5235995ff5438158dc"
 	apiUrl = "https://api.openweathermap.org/data/2.5/forecast"
 	geoCoderUrl = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&appid={API key}"
 )
@@ -61,6 +61,7 @@ type Location struct {
 }
 
 func getGeoCodeInfo(cityName string) string  {
+	apiKey := os.Getenv("API_KEY")
 	url := fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", cityName, apiKey)
 
 	response, err := http.Get(url)
